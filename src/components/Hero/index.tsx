@@ -33,51 +33,53 @@ const Hero = ({
   const registered = 1;
 
   return (
-    <div className="">
-      <div className="custom-img flex h-screen items-center justify-center bg-cover bg-fixed bg-center">
-        <div className="absolute top-0 bottom-0 left-0 right-0 z-[2] h-screen bg-black/20" />
+    <div>
+      <div className="">
+        <div className="custom-img flex h-screen items-center justify-center bg-cover bg-fixed bg-center">
+          <div className="absolute top-0 bottom-0 left-0 right-0 z-[2] h-screen bg-black/20" />
 
-        <div className="z-[2] mt-[10rem] p-5 text-white sm:ml-[-10rem] sm:mt-[10rem] md:ml-[-20rem] lg:ml-[-30rem] xl:ml-[-40rem] 2xl:ml-[-50rem]">
-          <div className="text-4xl font-bold sm:text-5xl">
-            {account?.address ? (
-              haveToken ? (
-                registered ? (
-                  userInfo?.approved ? (
-                    "Not Member"
+          <div className="z-[2] mt-[10rem] p-5 text-white sm:ml-[-10rem] sm:mt-[10rem] md:ml-[-20rem] lg:ml-[-30rem] xl:ml-[-40rem] 2xl:ml-[-50rem]">
+            <div className="text-4xl font-bold sm:text-5xl">
+              {account?.address ? (
+                haveToken ? (
+                  registered ? (
+                    userInfo?.approved ? (
+                      "Not Member"
+                    ) : (
+                      `Welcome! ${
+                        account.address?.toString().substring(0, 5) +
+                        "..." +
+                        account?.address
+                          ?.toString()
+                          .substring(
+                            account?.address?.toString().length - 5,
+                            account?.address?.toString().length
+                          )
+                      }`
+                    )
                   ) : (
-                    `Welcome! ${
-                      account.address?.toString().substring(0, 5) +
-                      "..." +
-                      account?.address
-                        ?.toString()
-                        .substring(
-                          account?.address?.toString().length - 5,
-                          account?.address?.toString().length
-                        )
-                    }`
+                    <RegisterButton setRegisterModalOn={setRegisterModalOn} />
                   )
                 ) : (
-                  <RegisterButton setRegisterModalOn={setRegisterModalOn} />
+                  "Not Member"
                 )
               ) : (
-                "Not Member"
-              )
-            ) : (
-              "Hello! Login First!"
-            )}
-          </div>
-          <div className="space-x-3 py-5 text-xl">
-            {userInfo?.approved ? (
-              <Link href="#campaigns">
-                <button className="rounded-2xl bg-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/30">
-                  Campaigns
-                </button>
-              </Link>
-            ) : null}
-            <ConnectButton
-              setConnectModalOn={setConnectModalOn}
-              setWalletInfoModalOn={setWalletInfoModalOn}
-            />
+                "Hello! Login First!"
+              )}
+            </div>
+            <div className="flex space-x-3 py-5 text-xl">
+              {registered ? (
+                <Link href="#campaigns">
+                  <button className="rounded-2xl bg-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/30">
+                    Campaigns
+                  </button>
+                </Link>
+              ) : null}
+              <ConnectButton
+                setConnectModalOn={setConnectModalOn}
+                setWalletInfoModalOn={setWalletInfoModalOn}
+              />
+            </div>
           </div>
         </div>
       </div>
