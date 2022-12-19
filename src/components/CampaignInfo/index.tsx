@@ -100,38 +100,46 @@ const CampaignInfo = ({
         <div className="flex justify-center py-2 pb-10">
           <Image
             className="rounded-xl bg-white object-contain"
-            height={200}
-            width={200}
+            height={400}
+            width={400}
             src={"https://ipfs.io/ipfs/" + campaign?.image}
             alt=""
           />
         </div>
       ) : null}
       {campaign ? (
-        <div>
-          <div className="rounded-2xl bg-white/60">
-            <div className="space-y-2 p-3 text-center lg:p-3">
-              <h1 className=" text-4xl font-bold">{campaign?.title}</h1>
-              <div className="space-y-1 py-1 text-left">
-                <h2>Host：{campaign?.host}</h2>
-                <div className="flex">
-                  <h2>Time：</h2>
-                  <div className="flex space-x-2">
-                    <h2 className="text-md text-center">
-                      {campaign?.time?.toLocaleDateString()}
-                    </h2>
-                    <h2 className="text-md text-center">
-                      {campaign?.time?.getHours()}:
-                      {campaign?.time && campaign?.time?.getMinutes() < 10
-                        ? "0" + campaign.time?.getMinutes()
-                        : campaign?.time?.getMinutes()}
-                    </h2>
+        <div className="">
+          <div className="flex justify-center">
+            <div className="w-3/5 rounded-2xl bg-white/60">
+              <div className="space-y-2 p-3 text-center lg:p-3">
+                <h1 className=" text-4xl font-bold">{campaign?.title}</h1>
+                <div className="space-y-1 py-1 text-left">
+                  <h2>Host：{campaign?.host}</h2>
+                  <div className="flex">
+                    <h2>Time：</h2>
+                    <div className="flex space-x-2">
+                      <h2 className="text-md text-center">
+                        {campaign?.time?.toLocaleDateString()}
+                      </h2>
+                      <h2 className="text-md text-center">
+                        {campaign?.time?.getHours()}:
+                        {campaign?.time && campaign?.time?.getMinutes() < 10
+                          ? "0" + campaign.time?.getMinutes()
+                          : campaign?.time?.getMinutes()}
+                      </h2>
+                    </div>
                   </div>
+                  {campaign?.place ? <h2>Place：{campaign?.place}</h2> : null}
+                  {campaign?.presenter ? (
+                    <h2>Presenter：{campaign?.presenter}</h2>
+                  ) : null}
+                  {campaign?.presentTitle ? (
+                    <h2>Present Title：{campaign?.presentTitle}</h2>
+                  ) : null}
+                  {campaign?.description ? (
+                    <h2>Description：{campaign?.description}</h2>
+                  ) : null}
                 </div>
-                <h2>Place：{campaign?.place}</h2>
-                <h2>Presenter：{campaign?.presenter}</h2>
-                <h2>Present Title：{campaign?.presentTitle}</h2>
-                <h2>Description：{campaign?.description}</h2>
               </div>
             </div>
           </div>
