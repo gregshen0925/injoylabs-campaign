@@ -67,7 +67,7 @@ const Hero = ({
                 "Hello! Login First!"
               )}
             </div>
-            <div className="flex space-x-3 py-5 text-xl">
+            <div className="flex items-center space-x-3 py-5 text-xl">
               {registered ? (
                 <Link href="#campaigns">
                   <button className="rounded-2xl bg-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/30">

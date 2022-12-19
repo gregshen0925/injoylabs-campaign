@@ -57,14 +57,6 @@ const Home: NextPage = () => {
         setAddCampaignModal={setAddCampaignModal}
         setInviteModalOn={setInviteModalOn}
       />
-      <Hero
-        userName={userName}
-        setUserName={setUserName}
-        userInfo={userInfo}
-        setConnectModalOn={setConnectModalOn}
-        setWalletInfoModalOn={setWalletInfoModalOn}
-        setRegisterModalOn={setRegisterModalOn}
-      />
       {connectModalOn ? (
         <ConnectModal setConnectModalOn={setConnectModalOn} />
       ) : null}
@@ -95,6 +87,15 @@ const Home: NextPage = () => {
           <Campaigns campaigns={campaigns} />
         </section>
       ) : null}
+      <Hero
+        userName={userName}
+        setUserName={setUserName}
+        userInfo={userInfo}
+        setConnectModalOn={setConnectModalOn}
+        setWalletInfoModalOn={setWalletInfoModalOn}
+        setRegisterModalOn={setRegisterModalOn}
+      />
+
       <section id="campaigns" className="snap-center">
         <Campaigns campaigns={campaigns} />
       </section>

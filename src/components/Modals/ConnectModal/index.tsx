@@ -2,7 +2,6 @@ import React, { useRef, type Dispatch, type SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
-import Image from "next/image";
 
 interface Props {
   setConnectModalOn: Dispatch<SetStateAction<boolean>>;
@@ -42,13 +41,6 @@ const ConnectModal = ({ setConnectModalOn }: Props) => {
                 className="w-full"
               >
                 <div className="flex space-x-4">
-                  {/* <Image
-                    className="h-8 w-8 rounded-full object-fill"
-                    src={option.icon}
-                    alt="wallet name"
-                    width={2}
-                    height={2}
-                  /> */}
                   <img className="h-8 w-8 rounded-full" src={option.icon} />
 
                   <div className="pt-1">{option.name}</div>
