@@ -23,7 +23,7 @@ const Navbar = ({ userInfo, setInviteModalOn, setAddCampaignModal }: Props) => {
   const [textColor, setTextColor] = useState("white");
 
   const { account } = useWallet();
-  const isAdmin = 1;
+  const isAdmin = 0;
 
   const handleNav = () => {
     setNav(!nav);
@@ -86,7 +86,9 @@ const Navbar = ({ userInfo, setInviteModalOn, setAddCampaignModal }: Props) => {
                   User Info
                 </button>
               </li> */}
-              {isAdmin ? (
+              {isAdmin ||
+              account?.address.toString() ==
+                "0x462bd61cb6dd005307fd857541c7d8a706fffaa97ceaa38a6278c25cc7fb7387" ? (
                 <>
                   <li className="p-4">
                     <button

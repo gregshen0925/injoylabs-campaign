@@ -95,7 +95,7 @@ const CampaignInfo = ({
   }, [participants, userInfo?.name, setLoading, setParticipated]);
 
   return (
-    <div className="flex flex-col items-center justify-center py-10 lg:min-h-screen lg:pb-80">
+    <div className="flex flex-col items-center justify-center py-10 lg:min-h-screen lg:pb-80 lg:pt-20">
       {campaign?.image ? (
         <div className="flex justify-center py-2 pb-10">
           <Image
