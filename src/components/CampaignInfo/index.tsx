@@ -111,7 +111,7 @@ const CampaignInfo = ({
       {campaign ? (
         <div className="">
           <div className="flex justify-center">
-            <div className="w-3/5 rounded-2xl bg-white/60">
+            <div className="w-4/5 rounded-2xl bg-white/60 sm:w-3/5">
               <div className="space-y-2 p-3 text-center lg:p-3">
                 <h1 className=" text-4xl font-bold">{campaign?.title}</h1>
                 <div className="space-y-1 py-1 text-left">
