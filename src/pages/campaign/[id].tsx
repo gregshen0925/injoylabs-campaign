@@ -50,8 +50,6 @@ const CampainPage = () => {
         <link rel="icon" href="/favicon.jpeg" />
       </Head>
 
-      <Toaster position="bottom-center" />
-
       {deleteCampaignModal ? (
         <DeleteCampaignModal
           setDeleteCampaignModal={setDeleteCampaignModal}

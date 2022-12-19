@@ -74,10 +74,11 @@ const CampaignInfo = ({
   };
 
   const handleParticipate = () => {
-    setExecuting(true);
-    if (!userInfo?.id) return;
-    if (!campaign?.id) return;
-    participate({ id: userInfo?.id, campaignId: campaign?.id });
+    // setExecuting(true);
+    // if (!userInfo?.id) return;
+    // if (!campaign?.id) return;
+    // participate({ id: userInfo?.id, campaignId: campaign?.id });
+    toast.error("Still Developing...");
   };
 
   useEffect(() => {
