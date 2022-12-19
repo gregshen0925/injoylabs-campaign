@@ -39,7 +39,7 @@ const Hero = ({
 
         <div className="z-[2] mt-[10rem] p-5 text-white sm:ml-[-10rem] sm:mt-[10rem] md:ml-[-20rem] lg:ml-[-30rem] xl:ml-[-40rem] 2xl:ml-[-50rem]">
           <div className="text-4xl font-bold sm:text-5xl">
-            {account ? (
+            {account?.address ? (
               haveToken ? (
                 registered ? (
                   userInfo?.approved ? (

@@ -5,8 +5,8 @@ import React, {
   type SetStateAction,
 } from "react";
 import { motion } from "framer-motion";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
-import { trpc } from "../../utils/trpc";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { trpc } from "../../../utils/trpc";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -67,7 +67,7 @@ const InviteModal = ({ setInviteModalOn }: Props) => {
 
           <div className="rounded-t border-b py-4 px-6 dark:border-gray-800">
             <h3 className="text-base font-semibold text-gray-900 dark:text-white lg:text-2xl">
-              邀請會員
+              Invite User
             </h3>
           </div>
           <div className="space-y-4 p-6">
@@ -78,7 +78,7 @@ const InviteModal = ({ setInviteModalOn }: Props) => {
                 type="text"
                 value={input.trimStart()}
                 onChange={handleChange}
-                placeholder="請貼上要邀請的使用者 ID"
+                placeholder="Address or Username"
                 className="disables:opacity-50 md:text-md flex-1 rounded border border-gray-300 bg-gray-700 px-4 py-2 text-xs text-white focus:border-transparent 
                 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:cursor-not-allowed"
               />
@@ -95,7 +95,11 @@ const InviteModal = ({ setInviteModalOn }: Props) => {
                   className="disables:opacity-50 rounded bg-blue-500 py-2 px-4 text-xs font-bold
                 text-white hover:bg-blue-700 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Loading..." : "邀請"}
+                  {loading ? (
+                    <div className="animate-pulse">Loading...</div>
+                  ) : (
+                    "Invite"
+                  )}
                 </button>
               </motion.div>
             </div>

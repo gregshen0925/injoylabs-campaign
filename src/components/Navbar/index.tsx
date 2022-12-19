@@ -1,3 +1,4 @@
+import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import { type User } from "@prisma/client";
 import Link from "next/link";
 import React, {
@@ -16,28 +17,23 @@ type Props = {
   setInviteModalOn: Dispatch<SetStateAction<boolean>>;
 };
 
-const Navbar = ({
-  setUserInfoModal,
-  userInfoModal,
-  userInfo,
-  setInviteModalOn,
-  setAddCampaignModal,
-}: Props) => {
+const Navbar = ({ userInfo, setInviteModalOn, setAddCampaignModal }: Props) => {
   const [nav, setNav] = useState<boolean>(false);
   const [color, setColor] = useState("transparent");
   const [textColor, setTextColor] = useState("white");
 
-  const address = "1";
+  const { account } = useWallet();
+  const isAdmin = 1;
 
   const handleNav = () => {
     setNav(!nav);
   };
 
-  const handleUserModal = () => {
-    setUserInfoModal(true);
-    setNav(false);
-    console.log(userInfoModal);
-  };
+  // const handleUserModal = () => {
+  //   setUserInfoModal(true);
+  //   setNav(false);
+  //   console.log(userInfoModal);
+  // };
 
   const handleAddCampaignModal = () => {
     setAddCampaignModal(true);
@@ -83,14 +79,14 @@ const Navbar = ({
           <li className="p-4">
             <Link href="/">Home</Link>
           </li>
-          {address ? (
+          {account?.address ? (
             <>
-              <li className="p-4">
+              {/* <li className="p-4">
                 <button onClick={handleUserModal} className="cursor-pointer">
                   User Info
                 </button>
-              </li>
-              {userInfo?.isAdmin ? (
+              </li> */}
+              {isAdmin ? (
                 <>
                   <li className="p-4">
                     <button
@@ -144,11 +140,11 @@ const Navbar = ({
             >
               <Link href="/">Home</Link>
             </li>
-            {address ? (
+            {account?.address ? (
               <>
-                <li className="p-4">
+                {/* <li className="p-4">
                   <div onClick={handleUserModal}>User Info</div>
-                </li>
+                </li> */}
                 {userInfo?.isAdmin ? (
                   <>
                     <li className="p-4">

@@ -110,16 +110,10 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
 
           <div className="rounded-t border-b border-gray-800 py-4 px-6">
             <h3 className="text-base font-semibold text-white lg:text-2xl">
-              新增活動
+              Add Campaign
             </h3>
           </div>
           <div className="space-y-2 p-6">
-            <div className="flex space-x-10">
-              <p className="text-sm font-normal text-gray-400 sm:text-lg">
-                此頁面只有管理員看得見
-              </p>
-            </div>
-            {/* {change ? ( */}
             <div className="pt-3">
               <div className="group relative z-0 mb-6 w-full">
                 <input
@@ -132,7 +126,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                   required={true}
                 />
                 <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500">
-                  主辦人
+                  Host
                 </label>
               </div>
               <div className="group relative z-0 mb-6 w-full">
@@ -146,7 +140,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                   required={true}
                 />
                 <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75  peer-focus:font-medium peer-focus:text-blue-500">
-                  活動主題
+                  Title
                 </label>
               </div>
               <div className="group relative z-0 mb-6 w-full">
@@ -160,7 +154,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                   required={true}
                 />
                 <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75  peer-focus:font-medium peer-focus:text-blue-500">
-                  活動地點
+                  Place
                 </label>
               </div>
               <div className="group relative z-0 mb-6 w-full">
@@ -174,7 +168,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                   required={true}
                 />
                 <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm  text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75  peer-focus:font-medium peer-focus:text-blue-500">
-                  活動時間
+                  Time
                 </label>
               </div>
               <div className="grid md:grid-cols-2 md:gap-6">
@@ -189,7 +183,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                     required={true}
                   />
                   <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75  peer-focus:font-medium peer-focus:text-blue-500">
-                    主講人
+                    Presenter
                   </label>
                 </div>
                 <div className="group relative z-0 mb-6 w-full">
@@ -203,7 +197,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                     required={true}
                   />
                   <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm  text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75  peer-focus:font-medium peer-focus:text-blue-500">
-                    主講主題
+                    Present Title
                   </label>
                 </div>
               </div>
@@ -213,11 +207,11 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                 rows={4}
                 onChange={(e) => setDescription(e.target.value)}
                 className="block w-full rounded-lg border border-gray-600 bg-transparent p-2.5  text-sm text-white  focus:border-blue-500 focus:ring-blue-500"
-                placeholder="活動介紹"
+                placeholder="Description"
               ></textarea>
 
               <p className="pt-2 pb-2 text-sm font-normal text-gray-400">
-                活動主題照
+                Main Image
               </p>
               <input
                 className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
@@ -238,7 +232,7 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
                     className="disables:opacity-50 md:text-md rounded bg-blue-500 py-2 px-4 text-xs
             font-bold text-white hover:bg-blue-400 disabled:cursor-not-allowed"
                   >
-                    {loading ? "Loading..." : "新增活動"}
+                    {loading ? "Loading..." : "Add Campaign"}
                   </button>
                 </motion.div>
               </div>

@@ -1,4 +1,3 @@
-"use client";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import React, {
   useRef,
@@ -8,12 +7,14 @@ import React, {
 } from "react";
 import { motion } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import Image from "next/image";
 
 type Props = {
   setWalletInfoModalOn: Dispatch<SetStateAction<boolean>>;
+  avatar: string | null | undefined;
 };
 
-const InboxModal = ({ setWalletInfoModalOn }: Props) => {
+const InboxModal = ({ setWalletInfoModalOn, avatar }: Props) => {
   const clickOutsideRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState<boolean>(false);
   const { account, disconnect } = useWallet();
@@ -57,13 +58,15 @@ const InboxModal = ({ setWalletInfoModalOn }: Props) => {
 
           <div className="rounded-t border-b py-4 px-6 dark:border-gray-800">
             <div className="flex justify-center p-5">
-              {/* <Image
-                className="rounded-full bg-white object-contain"
-                height={100}
-                width={100}
-                src={avatar!}
-                alt=""
-              /> */}
+              {avatar ? (
+                <Image
+                  className="rounded-full bg-white object-contain"
+                  height={100}
+                  width={100}
+                  src={avatar}
+                  alt=""
+                />
+              ) : null}
             </div>
             <div className="flex flex-col items-center space-y-5">
               {/* <h3 className="text-center text-base font-semibold text-gray-900 dark:text-white lg:text-2xl">
