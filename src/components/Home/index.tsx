@@ -6,21 +6,23 @@ import Navbar from "../Navbar";
 import Campaigns from "../Campaigns";
 import UserInfoModal from "../Modals/UserInfoModal";
 import { trpc } from "../../utils/trpc";
-import AddCampaignModal from "../AddCampaignModal";
-import AddUserModal from "../AddUserModal";
+import InviteModal from "../InviteModal";
 import { type Campaign } from "@prisma/client";
 import ConnectModal from "../Modals/ConnectModal";
 import WalletInfoModal from "../Modals/WalletInfoModal";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
+import RegisterModal from "../Modals/RegisterModal";
+import AddCampaignModal from "../Modals/AddCampaignModal";
 
 const Home: NextPage = () => {
   const [userInfoModal, setUserInfoModal] = useState<boolean>(false);
   const [userName, setUserName] = useState<string | null>();
   const [addCampaignModal, setAddCampaignModal] = useState<boolean>(false);
-  const [addUserModal, setAddUserModal] = useState<boolean>(false);
+  const [inviteModalOn, setInviteModalOn] = useState<boolean>(false);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [connectModalOn, setConnectModalOn] = useState<boolean>(false);
   const [walletInfoModalOn, setWalletInfoModalOn] = useState<boolean>(false);
+  const [registerModalOn, setRegisterModalOn] = useState<boolean>(false);
   const {
     account,
     // connecting,
@@ -57,7 +59,7 @@ const Home: NextPage = () => {
         userInfoModal={userInfoModal}
         userInfo={userInfo}
         setAddCampaignModal={setAddCampaignModal}
-        setAddUserModal={setAddUserModal}
+        setInviteModalOn={setInviteModalOn}
       />
       <Hero
         userName={userName}
@@ -65,12 +67,19 @@ const Home: NextPage = () => {
         userInfo={userInfo}
         setConnectModalOn={setConnectModalOn}
         setWalletInfoModalOn={setWalletInfoModalOn}
+        setRegisterModalOn={setRegisterModalOn}
       />
       {connectModalOn ? (
         <ConnectModal setConnectModalOn={setConnectModalOn} />
       ) : null}
       {walletInfoModalOn ? (
         <WalletInfoModal setWalletInfoModalOn={setWalletInfoModalOn} />
+      ) : null}
+      {registerModalOn ? (
+        <RegisterModal
+          setUserName={setUserName}
+          setRegisterModalOn={setRegisterModalOn}
+        />
       ) : null}
       {userInfoModal ? (
         <UserInfoModal
@@ -87,7 +96,9 @@ const Home: NextPage = () => {
           userInfo={userInfo}
         />
       ) : null}
-      {addUserModal ? <AddUserModal setAddUserModal={setAddUserModal} /> : null}
+      {inviteModalOn ? (
+        <InviteModal setInviteModalOn={setInviteModalOn} />
+      ) : null}
       {userInfo?.approved ? (
         <section id="campaigns" className="snap-center">
           <Campaigns campaigns={campaigns} />

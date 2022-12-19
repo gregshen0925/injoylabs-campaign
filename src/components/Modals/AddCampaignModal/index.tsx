@@ -4,11 +4,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import { motion } from "framer-motion";
-import { trpc } from "../../utils/trpc";
+import { trpc } from "../../../utils/trpc";
 import { type User, type Campaign } from "@prisma/client";
-import { uploadAssetToIpfs } from "../../utils/uploadIPFS";
+import { uploadAssetToIpfs } from "../../../utils/uploadIPFS";
 
 type Props = {
   setAddCampaignModal: Dispatch<SetStateAction<boolean>>;

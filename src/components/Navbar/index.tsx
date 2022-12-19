@@ -13,18 +13,16 @@ type Props = {
   userInfoModal: boolean;
   userInfo: User | null | undefined;
   setAddCampaignModal: Dispatch<SetStateAction<boolean>>;
-  setAddUserModal: Dispatch<SetStateAction<boolean>>;
+  setInviteModalOn: Dispatch<SetStateAction<boolean>>;
 };
 
 const Navbar = ({
   setUserInfoModal,
   userInfoModal,
   userInfo,
+  setInviteModalOn,
   setAddCampaignModal,
-}: // userInfo,
-// setAddUserModal,
-// setAddCampaignModal,
-Props) => {
+}: Props) => {
   const [nav, setNav] = useState<boolean>(false);
   const [color, setColor] = useState("transparent");
   const [textColor, setTextColor] = useState("white");
@@ -46,10 +44,10 @@ Props) => {
     setNav(!nav);
   };
 
-  // const handleAddUserModal = () => {
-  //   setAddUserModal(true);
-  //   setNav(!nav);
-  // };
+  const handleInviteModalOn = () => {
+    setInviteModalOn(true);
+    setNav(!nav);
+  };
 
   useEffect(() => {
     const changeColor = () => {
@@ -99,17 +97,17 @@ Props) => {
                       onClick={handleAddCampaignModal}
                       className="cursor-pointer"
                     >
-                      新增活動
+                      Add Campaign
                     </button>
                   </li>
-                  {/* <li className="p-4">
+                  <li className="p-4">
                     <button
-                      onClick={handleAddUserModal}
+                      onClick={handleInviteModalOn}
                       className="cursor-pointer"
                     >
-                      新增會員
+                      Invite User
                     </button>
-                  </li> */}
+                  </li>
                 </>
               ) : null}
 
@@ -151,26 +149,26 @@ Props) => {
                 <li className="p-4">
                   <div onClick={handleUserModal}>User Info</div>
                 </li>
-                {/* {userInfo?.isAdmin ? (
+                {userInfo?.isAdmin ? (
                   <>
                     <li className="p-4">
                       <button
                         onClick={handleAddCampaignModal}
                         className="cursor-pointer"
                       >
-                        新增活動
+                        Add Campaign
                       </button>
                     </li>
                     <li className="p-4">
                       <button
-                        onClick={handleAddUserModal}
+                        onClick={handleInviteModalOn}
                         className="cursor-pointer"
                       >
-                        新增會員
+                        Invite User
                       </button>
                     </li>
                   </>
-                ) : null} */}
+                ) : null}
                 {/* <li className="p-4">
                 <Link href="/">首頁</Link>
               </li>

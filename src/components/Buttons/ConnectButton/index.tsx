@@ -1,7 +1,7 @@
 import React, { type Dispatch, type SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
-import { targetNetwork } from "../../constants";
+import { targetNetwork } from "../../../constants";
 
 type Props = {
   setConnectModalOn: Dispatch<SetStateAction<boolean>>;

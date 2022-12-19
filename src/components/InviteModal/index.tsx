@@ -10,15 +10,15 @@ import { trpc } from "../../utils/trpc";
 import toast from "react-hot-toast";
 
 type Props = {
-  setAddUserModal: Dispatch<SetStateAction<boolean>>;
+  setInviteModalOn: Dispatch<SetStateAction<boolean>>;
 };
 
-const AddUserModal = ({ setAddUserModal }: Props) => {
+const InviteModal = ({ setInviteModalOn }: Props) => {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const clickOutsideRef = useRef<HTMLDivElement>(null);
   const clickOutsidehandler = () => {
-    setAddUserModal(false);
+    setInviteModalOn(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +28,8 @@ const AddUserModal = ({ setAddUserModal }: Props) => {
   const { mutate: addUser } = trpc.user.addUser.useMutation({
     onSuccess() {
       setLoading(false);
-      setAddUserModal(false);
-      toast.success("已成功新增");
+      setInviteModalOn(false);
+      toast.success("Successfully added");
     },
   });
 
@@ -47,7 +47,7 @@ const AddUserModal = ({ setAddUserModal }: Props) => {
           className="dark:bg-black-700 relative overflow-y-scroll rounded-2xl bg-black/70  shadow"
         >
           <button
-            onClick={() => setAddUserModal(false)}
+            onClick={() => setInviteModalOn(false)}
             className="absolute top-3 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
           >
             <svg
@@ -106,4 +106,4 @@ const AddUserModal = ({ setAddUserModal }: Props) => {
   );
 };
 
-export default AddUserModal;
+export default InviteModal;
