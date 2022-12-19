@@ -17,8 +17,8 @@ const CollectionCard = ({ campaign }: Props) => {
               <Image
                 className="rounded-2xl object-cover"
                 src={"https://ipfs.io/ipfs/" + campaign?.image}
-                height={200}
-                width={200}
+                height={300}
+                width={300}
                 alt=""
               />
             </div>
@@ -38,10 +38,10 @@ const CollectionCard = ({ campaign }: Props) => {
                   : campaign.time?.getMinutes()}
               </h2>
             </div>
+            <p className="mt-2 mb-8 text-center text-sm font-semibold text-white">
+              {campaign.description}
+            </p>
           </div>
-          <p className="mt-2 mb-8 text-center text-sm font-semibold text-white">
-            {campaign.description}
-          </p>
         </div>
       </div>
     </Link>
