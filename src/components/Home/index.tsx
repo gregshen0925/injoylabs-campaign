@@ -67,10 +67,7 @@ const Home: NextPage = () => {
         />
       ) : null}
       {registerModalOn ? (
-        <RegisterModal
-          setUserName={setUserName}
-          setRegisterModalOn={setRegisterModalOn}
-        />
+        <RegisterModal setRegisterModalOn={setRegisterModalOn} />
       ) : null}
       {addCampaignModal ? (
         <AddCampaignModal

@@ -11,10 +11,17 @@ const useRegister = () => {
   const [nameInput, setNameInput] = useState<string>("");
   const [descirption, setDescription] = useState<string>("");
 
+  const { refetch } = trpc.user.getUserInfo.useQuery(
+    { address: account?.address?.toString() || "" },
+    {
+      enabled: account?.address !== undefined,
+    }
+  );
+
   const { mutate: register } = trpc.user.createUser.useMutation({
     onSuccess() {
       toast.success("Successfully registered!");
-      window.location.reload();
+      refetch();
     },
   });
 

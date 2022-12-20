@@ -5,11 +5,10 @@ import useRegister from "../../../hooks/useRegister";
 import { uploadAssetToIpfs } from "../../../utils/uploadIPFS";
 
 type Props = {
-  setUserName: Dispatch<SetStateAction<string | null | undefined>>;
   setRegisterModalOn: Dispatch<SetStateAction<boolean>>;
 };
 
-const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
+const RegisterModal = ({ setRegisterModalOn }: Props) => {
   const clickOutsideRef = useRef<HTMLDivElement>(null);
   const clickOutsidehandler = () => {
     setRegisterModalOn(false);
