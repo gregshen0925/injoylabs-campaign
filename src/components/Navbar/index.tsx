@@ -86,9 +86,7 @@ const Navbar = ({ userInfo, setInviteModalOn, setAddCampaignModal }: Props) => {
                   User Info
                 </button>
               </li> */}
-              {isAdmin ||
-              account?.address.toString() ==
-                "0x462bd61cb6dd005307fd857541c7d8a706fffaa97ceaa38a6278c25cc7fb7387" ? (
+              {userInfo?.isAdmin ? (
                 <>
                   <li className="p-4">
                     <button

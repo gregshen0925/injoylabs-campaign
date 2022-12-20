@@ -14,7 +14,7 @@ const Campaigns = ({ campaigns }: Props) => {
       {/* <div className="flex min-h-screen flex-col items-center justify-center  bg-gradient-to-b from-[#7fadd9] to-[#0889f3] "> */}
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 sm:gap-16 md:grid-cols-3 lg:grid-cols-4"
+          className="grid grid-cols-1 sm:grid-cols-2 sm:gap-16 lg:grid-cols-3 xl:grid-cols-4"
           ref={parent as LegacyRef<HTMLDivElement> | undefined}
         >
           {campaigns ? (

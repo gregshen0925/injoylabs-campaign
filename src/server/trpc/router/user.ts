@@ -48,6 +48,25 @@ export const userRouter = router({
       });
       return add;
     }),
+  createUser: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        address: z.string(),
+        description: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { name, address, description } = input;
+      const add = await ctx.prisma.user.create({
+        data: {
+          name,
+          address,
+          description,
+        },
+      });
+      return add;
+    }),
   participate: publicProcedure
     .input(z.object({ id: z.string(), campaignId: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -68,6 +87,7 @@ export const userRouter = router({
           },
         },
       });
+      return true;
     }),
   unparticipate: publicProcedure
     .input(z.object({ id: z.string(), campaignId: z.string() }))

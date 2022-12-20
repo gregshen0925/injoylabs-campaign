@@ -26,6 +26,7 @@ model User {
   isAdmin       Boolean @default(false)
   approved Boolean @default(true)
   campaigns     Campaign[]
+  description String?
 }
 
 

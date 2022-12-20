@@ -1,14 +1,10 @@
-import React, {
-  type Dispatch,
-  type SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import React, { type Dispatch, type SetStateAction, useRef } from "react";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import { motion } from "framer-motion";
 import { trpc } from "../../../utils/trpc";
 import { type User, type Campaign } from "@prisma/client";
 import { uploadAssetToIpfs } from "../../../utils/uploadIPFS";
+import useAddCampaign from "../../../hooks/useAddCampaign";
 
 type Props = {
   setAddCampaignModal: Dispatch<SetStateAction<boolean>>;
@@ -18,15 +14,26 @@ type Props = {
 
 const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
   const clickOutsideRef = useRef<HTMLDivElement>(null);
-  const [imageToUpload, setImageToUpload] = useState<File>();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [descirption, setDescription] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [host, setHost] = useState<string>("");
-  const [time, setTime] = useState<string>("");
-  const [place, setPlace] = useState<string>("");
-  const [presenter, setPresenter] = useState<string>("");
-  const [presentTitle, setPresentTitle] = useState<string>("");
+  const {
+    loading,
+    setLoading,
+    descirption,
+    setDescription,
+    imageToUpload,
+    title,
+    host,
+    time,
+    place,
+    presenter,
+    presentTitle,
+    handleHostChange,
+    handleTitleChange,
+    handleTimeChange,
+    handlePlaceChange,
+    handlePresenterChange,
+    handlePresentTitleChange,
+    handleFileChange,
+  } = useAddCampaign();
 
   const clickOutsidehandler = () => {
     setAddCampaignModal(false);
@@ -41,29 +48,6 @@ const AddCampaignModal = ({ setAddCampaignModal, setCampaigns }: Props) => {
     },
   });
 
-  const handleHostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHost(e.target.value);
-  };
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTime(e.target.value);
-  };
-  const handlePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlace(e.target.value);
-  };
-  const handlePresenterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPresenter(e.target.value);
-  };
-  const handlePresentTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPresentTitle(e.target.value);
-  };
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImageToUpload(e.target.files[0]);
-    }
-  };
   const handleSubmit = async () => {
     setLoading(true);
     if (!imageToUpload) return;

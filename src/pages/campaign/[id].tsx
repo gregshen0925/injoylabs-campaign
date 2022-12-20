@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import CampaignInfo from "../../components/CampaignInfo";
 import ParticipateInfo from "../../components/ParticipateInfo";
@@ -14,7 +13,6 @@ const CampainPage = () => {
   const { id } = router.query;
   const title = typeof id === "string" ? id : "/";
   const [participants, setParticipants] = useState<Participants[]>();
-  const [loading, setLoading] = useState<boolean>(true);
   const { account } = useWallet();
   const [deleteCampaignModal, setDeleteCampaignModal] =
     useState<boolean>(false);
@@ -22,10 +20,10 @@ const CampainPage = () => {
   const { data: campaign } = trpc.campaign.getOne.useQuery({ title: title });
 
   const { data: userInfo } = trpc.user.getUserInfo.useQuery(
-    { address: account?.address?.toString() || "" },
-    {
-      enabled: account?.address?.toString() !== undefined,
-    }
+    { address: account?.address?.toString() || "" }
+    // {
+    //   enabled: account?.address?.toString() !== undefined,
+    // }
   );
 
   trpc.campaign.getParticipants.useQuery(
@@ -35,7 +33,7 @@ const CampainPage = () => {
     {
       onSuccess: (data) => {
         setParticipants(data[0]?.participants);
-        setLoading(false);
+        // setLoading(false);
       },
     }
   );
@@ -64,15 +62,13 @@ const CampainPage = () => {
           participants={participants}
           setParticipants={setParticipants}
           userInfo={userInfo}
-          loading={loading}
-          setLoading={setLoading}
           setDeleteCampaignModal={setDeleteCampaignModal}
         />
       </div>
 
       {/* Right */}
       <div className="z-[1] flex flex-1 flex-col py-5 px-12 sm:py-20 lg:col-span-6">
-        <ParticipateInfo participants={participants} loading={loading} />
+        <ParticipateInfo participants={participants} />
       </div>
     </div>
   );

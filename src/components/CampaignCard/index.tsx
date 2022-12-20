@@ -24,7 +24,7 @@ const CollectionCard = ({ campaign }: Props) => {
             </div>
           ) : null}
           <div className="space-y-3 p-5">
-            <h2 className="text-center text-xl font-semibold text-white md:text-3xl">
+            <h2 className="text-center text-xl font-semibold text-white sm:text-2xl lg:text-3xl">
               {campaign.title}
             </h2>
             <div className="flex justify-center space-x-2">

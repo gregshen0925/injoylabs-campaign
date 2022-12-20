@@ -1,15 +1,7 @@
-import { useWallet } from "@manahippo/aptos-wallet-adapter";
-import React, {
-  type Dispatch,
-  type SetStateAction,
-  useState,
-  useRef,
-} from "react";
-import toast from "react-hot-toast";
-import { client, type Types, MODULE_ID } from "../../../utils/aptosClient";
-import { uploadAssetToIpfs } from "../../../utils/uploadIPFS";
+import React, { type Dispatch, type SetStateAction, useRef } from "react";
 import { motion } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import useRegister from "../../../hooks/useRegister";
 
 type Props = {
   setUserName: Dispatch<SetStateAction<string | null | undefined>>;
@@ -17,18 +9,25 @@ type Props = {
 };
 
 const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
-  const [input, setInput] = useState<string>("");
-  const [imageToUpload, setImageToUpload] = useState<File>();
-  const [loading, setLoading] = useState<boolean>(false);
-  const { account, signAndSubmitTransaction } = useWallet();
   const clickOutsideRef = useRef<HTMLDivElement>(null);
   const clickOutsidehandler = () => {
     setRegisterModalOn(false);
   };
   useOnClickOutside(clickOutsideRef, clickOutsidehandler);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+  const {
+    imageToUpload,
+    setImageToUpload,
+    onChainRegister,
+    loading,
+    setNameInput,
+    nameInput,
+    setDescription,
+    offChainRegister,
+  } = useRegister();
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameInput(e.target.value);
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -36,35 +35,10 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
     }
   };
   const handleRegister = async () => {
-    setLoading(true);
-    if (!imageToUpload) {
-      setLoading(false);
-      return;
-    }
-
-    const { path } = await uploadAssetToIpfs(imageToUpload);
-
-    if (account?.address || account?.publicKey) {
-      const payload: Types.TransactionPayload = {
-        type: "entry_function_payload",
-        function: `${MODULE_ID}::register`,
-        type_arguments: [],
-        arguments: [input, "", "", path],
-      };
-      const transactionRes = await signAndSubmitTransaction(
-        payload
-        // txOptions
-      );
-      await client
-        .waitForTransaction(transactionRes?.hash || "", { checkSuccess: true })
-        .then(() => {
-          setUserName(input);
-          toast.success(
-            "Your avatar will show within a minute due to IPFS gateway issue."
-          );
-          setLoading(false);
-        });
-    }
+    // const ipfsPath = await onChainRegister();
+    offChainRegister().finally(() => {
+      setRegisterModalOn(false);
+    });
   };
 
   return (
@@ -106,8 +80,8 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
               <input
                 type="username"
                 id="username"
-                value={input.trimStart()}
-                onChange={handleChange}
+                value={nameInput.trimStart()}
+                onChange={handleNameChange}
                 className="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="Enter your username"
                 required={true}
@@ -122,27 +96,15 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
               type="file"
               required={true}
             />
-
-            {/* <div className="flex items-start py-5">
-          <div className="flex items-center h-5">
-            <input
-              id="terms"
-              type="checkbox"
-              className="w-4 h-4 rounded border  focus:ring-3 focus:ring-blue-300 bg-gray-700 border-gray-600 dark:focus:ring-blue-600 ring-offset-gray-800"
-              required={true}
-            />
-          </div>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-            I agree with the{" "}
-            <a
-              href="https://injoylabs.io"
-              target="_blank"
-              className="text-blue-600 hover:underline dark:text-blue-500"
-            >
-              terms and conditions
-            </a>
-          </label>
-        </div> */}
+            <div className="pt-3">
+              <textarea
+                id="message"
+                rows={4}
+                onChange={(e) => setDescription(e.target.value)}
+                className="block w-full rounded-lg border border-gray-600 bg-transparent p-2.5 text-sm text-white  focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Introduce Yourself"
+              ></textarea>
+            </div>
             <div className="animate-pulse pt-4 text-center text-red-400">
               Make sure you have APT in your wallet
             </div>
@@ -157,7 +119,7 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
                   type="button"
                   onClick={handleRegister}
                   className="rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-800 disabled:cursor-not-allowed"
-                  disabled={!input.trimStart() || !imageToUpload}
+                  disabled={!nameInput.trimStart() || !imageToUpload}
                 >
                   {loading ? "Loading..." : "Register"}
                 </button>

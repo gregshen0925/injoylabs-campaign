@@ -11,32 +11,30 @@ import { trpc } from "../../utils/trpc";
 import { type Participants } from "../../../types/typing";
 import toast from "react-hot-toast";
 
-interface Props {
+type Props = {
   campaign?: Campaign | null;
   participants?: Participants[];
   setParticipants: Dispatch<SetStateAction<Participants[] | undefined>>;
   userInfo: User | null | undefined;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
   setDeleteCampaignModal: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 const CampaignInfo = ({
   participants,
   campaign,
   setParticipants,
   userInfo,
-  loading,
-  setLoading,
   setDeleteCampaignModal,
 }: Props) => {
   const [participated, setParticipated] = useState<boolean>(false);
   const [executing, setExecuting] = useState<boolean>(false);
 
+  console.log(userInfo);
+
   const { mutate: participate } = trpc.user.participate.useMutation({
     onSuccess() {
       setParticipated(true);
-      toast.success("成功報名參加！");
+      toast.success("Successfully Applied！");
       if (!userInfo?.id) return;
       if (!userInfo?.name) return;
       setParticipants((prev) => [
@@ -74,15 +72,13 @@ const CampaignInfo = ({
   };
 
   const handleParticipate = () => {
-    // setExecuting(true);
-    // if (!userInfo?.id) return;
-    // if (!campaign?.id) return;
-    // participate({ id: userInfo?.id, campaignId: campaign?.id });
-    toast.error("Still Developing...");
+    setExecuting(true);
+    if (!userInfo?.id) return;
+    if (!campaign?.id) return;
+    participate({ id: userInfo?.id, campaignId: campaign?.id });
   };
 
   useEffect(() => {
-    setLoading(true);
     const participantsArray: string[] = [];
     participants?.forEach((items) => {
       if (!items.name) return;
@@ -92,8 +88,7 @@ const CampaignInfo = ({
     if (participantsArray.includes(userInfo.name)) {
       setParticipated(true);
     }
-    setLoading(false);
-  }, [participants, userInfo?.name, setLoading, setParticipated]);
+  }, [participants, userInfo?.name, setParticipated]);
 
   return (
     <div className="flex flex-col items-center justify-center py-10 lg:min-h-screen lg:pb-80 lg:pt-20">
@@ -144,7 +139,7 @@ const CampaignInfo = ({
               </div>
             </div>
           </div>
-          {loading ? null : !participated ? (
+          {!participants ? null : !participated ? (
             <div className="flex justify-center pt-8">
               <motion.div
                 whileTap={{

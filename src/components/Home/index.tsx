@@ -82,11 +82,7 @@ const Home: NextPage = () => {
       {inviteModalOn ? (
         <InviteModal setInviteModalOn={setInviteModalOn} />
       ) : null}
-      {userInfo?.approved ? (
-        <section id="campaigns" className="snap-center">
-          <Campaigns campaigns={campaigns} />
-        </section>
-      ) : null}
+
       <Hero
         userName={userName}
         setUserName={setUserName}
@@ -95,10 +91,11 @@ const Home: NextPage = () => {
         setWalletInfoModalOn={setWalletInfoModalOn}
         setRegisterModalOn={setRegisterModalOn}
       />
-
-      <section id="campaigns" className="snap-center">
-        <Campaigns campaigns={campaigns} />
-      </section>
+      {userInfo?.approved ? (
+        <section id="campaigns" className="snap-center">
+          <Campaigns campaigns={campaigns} />
+        </section>
+      ) : null}
     </>
   );
 };
