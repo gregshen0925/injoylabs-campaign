@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Hero = ({
-  userName,
+  // userName,
   // setUserName,
   userInfo,
   setConnectModalOn,

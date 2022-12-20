@@ -29,7 +29,7 @@ const ConnectButton = ({ setConnectModalOn, setWalletInfoModalOn }: Props) => {
             connected
               ? network?.name?.toString().toLowerCase() == targetNetwork ||
                 "Aptos testnet"
-                ? network?.name
+                ? "User Info"
                 : "Wrong Network"
               : "Connect Wallet"
           }`}

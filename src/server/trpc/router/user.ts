@@ -53,15 +53,17 @@ export const userRouter = router({
       z.object({
         name: z.string(),
         address: z.string(),
+        image: z.string(),
         description: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const { name, address, description } = input;
+      const { name, address, image, description } = input;
       const add = await ctx.prisma.user.create({
         data: {
           name,
           address,
+          image,
           description,
         },
       });

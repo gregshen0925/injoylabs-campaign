@@ -8,7 +8,7 @@ import { trpc } from "../../utils/trpc";
 import InviteModal from "../Modals/InviteModal";
 import { type Campaign } from "@prisma/client";
 import ConnectModal from "../Modals/ConnectModal";
-import WalletInfoModal from "../Modals/WalletInfoModal";
+import UserInfoModal from "../Modals/UserInfoModal";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import RegisterModal from "../Modals/RegisterModal";
 import AddCampaignModal from "../Modals/AddCampaignModal";
@@ -61,9 +61,10 @@ const Home: NextPage = () => {
         <ConnectModal setConnectModalOn={setConnectModalOn} />
       ) : null}
       {walletInfoModalOn ? (
-        <WalletInfoModal
+        <UserInfoModal
           setWalletInfoModalOn={setWalletInfoModalOn}
           avatar={avatar}
+          userInfo={userInfo}
         />
       ) : null}
       {registerModalOn ? (

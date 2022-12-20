@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { uploadAssetToIpfs } from "../utils/uploadIPFS";
 import { client, type Types, MODULE_ID } from "../utils/aptosClient";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import toast from "react-hot-toast";
@@ -18,16 +17,7 @@ const useRegister = () => {
     },
   });
 
-  const onChainRegister = async () => {
-    setLoading(true);
-
-    if (!imageToUpload) {
-      setLoading(false);
-      return;
-    }
-
-    const { path } = await uploadAssetToIpfs(imageToUpload);
-
+  const onChainRegister = async (path: string) => {
     if (account?.address || account?.publicKey) {
       const payload: Types.TransactionPayload = {
         type: "entry_function_payload",
@@ -52,11 +42,12 @@ const useRegister = () => {
     // return path;
   };
 
-  const offChainRegister = async () => {
+  const offChainRegister = async (path: string) => {
     if (!account?.address) return;
     register({
       name: nameInput,
       address: account?.address?.toString(),
+      image: "https://ipfs.io/ipfs/" + path,
       description: descirption,
     });
   };
@@ -66,6 +57,7 @@ const useRegister = () => {
     setImageToUpload,
     onChainRegister,
     loading,
+    setLoading,
     nameInput,
     setNameInput,
     setDescription,

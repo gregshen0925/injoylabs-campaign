@@ -2,6 +2,9 @@ import React, { type Dispatch, type SetStateAction, useRef } from "react";
 import { motion } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useRegister from "../../../hooks/useRegister";
+import { uploadAssetToIpfs } from "../../../utils/uploadIPFS";
+import { trpc } from "../../../utils/trpc";
+import { useWallet } from "@manahippo/aptos-wallet-adapter";
 
 type Props = {
   setUserName: Dispatch<SetStateAction<string | null | undefined>>;
@@ -9,6 +12,7 @@ type Props = {
 };
 
 const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
+  const { account } = useWallet();
   const clickOutsideRef = useRef<HTMLDivElement>(null);
   const clickOutsidehandler = () => {
     setRegisterModalOn(false);
@@ -18,8 +22,9 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
   const {
     imageToUpload,
     setImageToUpload,
-    onChainRegister,
+    // onChainRegister,
     loading,
+    setLoading,
     setNameInput,
     nameInput,
     setDescription,
@@ -35,9 +40,20 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
     }
   };
   const handleRegister = async () => {
-    // const ipfsPath = await onChainRegister();
-    offChainRegister().finally(() => {
+    setLoading(true);
+
+    if (!imageToUpload) {
+      setLoading(false);
+      return;
+    }
+
+    const { path } = await uploadAssetToIpfs(imageToUpload);
+    // onChainRegister(path)
+    offChainRegister(path).finally(() => {
       setRegisterModalOn(false);
+      trpc.user.getUserInfo.useQuery({
+        address: account?.address?.toString() || "",
+      });
     });
   };
 
@@ -105,9 +121,9 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
                 placeholder="Introduce Yourself"
               ></textarea>
             </div>
-            <div className="animate-pulse pt-4 text-center text-red-400">
+            {/* <div className="animate-pulse pt-4 text-center text-red-400">
               Make sure you have APT in your wallet
-            </div>
+            </div> */}
             <motion.div
               whileTap={{
                 scale: 0.8,

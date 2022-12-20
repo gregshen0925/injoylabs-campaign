@@ -1,3 +1,4 @@
+import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import React, {
   useRef,
   useState,
@@ -6,73 +7,41 @@ import React, {
 } from "react";
 import { motion } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
-import { trpc } from "../../../utils/trpc";
-import { type User } from "@prisma/client";
 import Image from "next/image";
+import { type User } from "@prisma/client";
 
 type Props = {
-  setUserName: Dispatch<SetStateAction<string | null | undefined>>;
-  setUserInfoModal: Dispatch<SetStateAction<boolean>>;
+  setWalletInfoModalOn: Dispatch<SetStateAction<boolean>>;
+  avatar: string | null | undefined;
   userInfo: User | null | undefined;
-  userName: string | null | undefined;
 };
 
-const UserInfoModal = ({
-  setUserInfoModal,
-  setUserName,
-  userInfo,
-  userName,
-}: Props) => {
-  const [input, setInput] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [change, setChange] = useState<boolean>(false);
-  const [copied, setCopied] = useState<boolean>(false);
-
+const UserInfoModal = ({ setWalletInfoModalOn, avatar, userInfo }: Props) => {
   const clickOutsideRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState<boolean>(false);
+  const { account, disconnect } = useWallet();
   const clickOutsidehandler = () => {
-    setUserInfoModal(false);
+    setWalletInfoModalOn(false);
   };
-  useOnClickOutside(clickOutsideRef, clickOutsidehandler);
-
-  const { mutate: changeName } = trpc.user.changeName.useMutation({
-    onSuccess(user: User) {
-      console.log(user.name);
-      setLoading(false);
-      setUserName(user.name);
-      setChange(false);
-    },
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+  const handleDisconnect = () => {
+    disconnect();
+    setWalletInfoModalOn(false);
   };
-
-  const handleSubmit = () => {
-    setLoading(true);
-    // if (!sessionData?.user?.id) return;
-    // changeName({ id: sessionData?.user?.id, name: input });
-  };
-
-  const handleOpenChangeBlock = () => {
-    setChange(!change);
-  };
-
   const handleCopyText = () => {
-    if (!userInfo?.id) return;
-    navigator.clipboard.writeText(userInfo?.id);
+    navigator.clipboard.writeText(account?.address?.toString() || "");
     setCopied(true);
   };
-
+  useOnClickOutside(clickOutsideRef, clickOutsidehandler);
   return (
-    <div className="fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-opacity-80 pt-40 backdrop-blur-sm sm:h-full sm:pt-0">
+    <div className="h-modal fixed z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-opacity-80 backdrop-blur-sm md:inset-0 md:h-full">
       <div className="relative h-full w-full max-w-md p-4 md:h-auto">
         <div
           ref={clickOutsideRef}
-          className="dark:bg-black-700 relative overflow-y-scroll rounded-2xl bg-black/70 shadow"
+          className="relative overflow-y-scroll rounded-2xl bg-black/70 shadow"
         >
           <button
-            onClick={() => setUserInfoModal(false)}
-            className="absolute top-3 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
+            onClick={() => setWalletInfoModalOn(false)}
+            className="absolute top-3 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200  hover:text-gray-900 "
           >
             <svg
               aria-hidden="true"
@@ -89,84 +58,72 @@ const UserInfoModal = ({
             </svg>
           </button>
 
-          <div className="rounded-t border-b border-gray-800 py-4 px-6">
-            <h3 className="text-base font-semibold text-white lg:text-2xl">
-              User Info
-            </h3>
-          </div>
-          {userInfo?.image ? (
+          <div className="rounded-t border-b border-gray-800 py-4  px-6">
             <div className="flex justify-center p-5">
-              <Image
-                className="rounded-full bg-white object-contain"
-                height={150}
-                width={150}
-                src={userInfo?.image}
-                alt=""
-              />
-            </div>
-          ) : null}
-
-          <div className="space-y-2 p-6">
-            <div className="flex space-x-10">
-              <p className="text-md font-normal text-gray-400 sm:text-lg">
-                User Name：{userName}
-              </p>
-
-              <button
-                onClick={handleOpenChangeBlock}
-                className="cursor-pointer rounded-xl bg-blue-400 px-2 text-white"
-              >
-                Change
-              </button>
-            </div>
-            <div className="flex items-center">
-              <p className="text-md font-normal text-gray-400 sm:text-lg">
-                ID：
-              </p>
-              {/* <p className="text-sm font-normal text-gray-400 sm:text-lg">
-                {userInfo?.id}
-              </p> */}
-
-              {copied ? (
-                <div className="font-bold text-white">✅ Copied</div>
-              ) : (
-                <button
-                  onClick={handleCopyText}
-                  className="cursor-pointer rounded-xl bg-blue-400 px-2 text-white"
-                >
-                  <div>Copy</div>
-                </button>
-              )}
-            </div>
-
-            {change ? (
-              <div className=" flex w-full justify-center space-x-2 pt-2">
-                <input
-                  type="text"
-                  value={input.trim()}
-                  onChange={handleChange}
-                  placeholder="Username"
-                  className="disables:opacity-50 md:text-md flex-1 rounded border border-gray-300 bg-gray-700 px-4 py-2 text-xs 
-              text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:cursor-not-allowed"
+              {userInfo?.image ? (
+                <Image
+                  className="rounded-full bg-white object-contain"
+                  height={100}
+                  width={100}
+                  src={userInfo.image}
+                  alt=""
                 />
-                <motion.div
-                  whileTap={{
-                    scale: 0.8,
-                    borderRadius: "100%",
-                  }}
-                >
+              ) : null}
+            </div>
+            <div className="flex flex-col items-center space-y-5">
+              {/* <h3 className="text-center text-base font-semibold text-gray-900  text-white lg:text-2xl">
+                {username}
+              </h3> */}
+              <motion.div
+                whileTap={{
+                  scale: 0.8,
+                  borderRadius: "100%",
+                }}
+              >
+                {copied ? (
                   <button
-                    type="submit"
-                    disabled={!input.trim()}
-                    onClick={handleSubmit}
-                    className="disables:opacity-50 md:text-md rounded bg-blue-500 py-2 px-4 text-xs
-              font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed"
+                    className="font-bold text-white"
+                    onClick={() => setCopied(false)}
                   >
-                    {loading ? "Loading..." : "Change"}
+                    ✅ Copied
                   </button>
-                </motion.div>
-              </div>
-            ) : null}
+                ) : (
+                  <div>
+                    <button onClick={handleCopyText} className="cursor-pointer">
+                      <h3 className="text-center text-base font-semibold text-white lg:text-xl">
+                        {account?.address?.toString().substring(0, 5) +
+                          "..." +
+                          account?.address
+                            ?.toString()
+                            .substring(
+                              account?.address?.toString().length - 5,
+                              account?.address?.toString().length
+                            )}
+                      </h3>
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+          </div>
+          <div className="pt-3 text-center text-white">
+            {userInfo?.description}
+          </div>
+
+          <div className="flex justify-center space-x-2 p-6">
+            <motion.div
+              whileTap={{
+                scale: 0.8,
+                borderRadius: "100%",
+              }}
+            >
+              <button
+                onClick={handleDisconnect}
+                className="cursor-pointer rounded-lg bg-gray-600 px-2 py-2 text-sm font-bold text-white hover:bg-gray-500"
+              >
+                Logout
+              </button>
+            </motion.div>
           </div>
         </div>
       </div>
