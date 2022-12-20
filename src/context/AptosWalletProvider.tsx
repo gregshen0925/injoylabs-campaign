@@ -37,6 +37,7 @@ export const AptosWalletProvider: FC<WalletProvider> = ({ children }) => {
   return (
     <WalletProvider
       wallets={wallets}
+      autoConnect={true}
       onError={(error: Error) => {
         console.log("wallet errors: ", error);
       }}

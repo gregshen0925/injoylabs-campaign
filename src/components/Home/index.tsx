@@ -23,7 +23,6 @@ const Home: NextPage = () => {
   const [walletInfoModalOn, setWalletInfoModalOn] = useState<boolean>(false);
   const [registerModalOn, setRegisterModalOn] = useState<boolean>(false);
   const { account } = useWallet();
-
   const { userName, avatar, setUserName } = useCheckUserStatus();
 
   const { data: userInfo } = trpc.user.getUserInfo.useQuery(

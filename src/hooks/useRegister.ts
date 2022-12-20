@@ -13,7 +13,8 @@ const useRegister = () => {
 
   const { mutate: register } = trpc.user.createUser.useMutation({
     onSuccess() {
-      toast.success("Successfully registered");
+      toast.success("Successfully registered!");
+      window.location.reload();
     },
   });
 

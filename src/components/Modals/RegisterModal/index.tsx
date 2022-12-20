@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useRegister from "../../../hooks/useRegister";
 import { uploadAssetToIpfs } from "../../../utils/uploadIPFS";
-import { trpc } from "../../../utils/trpc";
-import { useWallet } from "@manahippo/aptos-wallet-adapter";
 
 type Props = {
   setUserName: Dispatch<SetStateAction<string | null | undefined>>;
@@ -12,7 +10,6 @@ type Props = {
 };
 
 const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
-  const { account } = useWallet();
   const clickOutsideRef = useRef<HTMLDivElement>(null);
   const clickOutsidehandler = () => {
     setRegisterModalOn(false);
@@ -51,9 +48,6 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
     // onChainRegister(path)
     offChainRegister(path).finally(() => {
       setRegisterModalOn(false);
-      trpc.user.getUserInfo.useQuery({
-        address: account?.address?.toString() || "",
-      });
     });
   };
 
@@ -124,13 +118,14 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
             {/* <div className="animate-pulse pt-4 text-center text-red-400">
               Make sure you have APT in your wallet
             </div> */}
-            <motion.div
-              whileTap={{
-                scale: 0.8,
-                borderRadius: "100%",
-              }}
-            >
-              <div className="flex justify-center py-5">
+
+            <div className="flex justify-center py-5">
+              <motion.div
+                whileTap={{
+                  scale: 0.8,
+                  borderRadius: "100%",
+                }}
+              >
                 <button
                   type="button"
                   onClick={handleRegister}
@@ -139,8 +134,8 @@ const RegisterModal = ({ setUserName, setRegisterModalOn }: Props) => {
                 >
                   {loading ? "Loading..." : "Register"}
                 </button>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </form>
         </div>
       </div>

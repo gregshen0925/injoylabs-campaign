@@ -23,7 +23,6 @@ const Hero = ({
   setRegisterModalOn,
 }: Props) => {
   const { account } = useWallet();
-
   // useEffect(() => {
   //   if (!userInfo?.name) return;
   //   setUserName(userInfo?.name);
@@ -51,7 +50,7 @@ const Hero = ({
                       //     account?.address?.toString().length - 5,
                       //     account?.address?.toString().length
                       //   )
-                      userInfo.name
+                      userInfo?.name
                     }`
                   ) : (
                     "Not Member"
