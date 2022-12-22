@@ -67,7 +67,7 @@ const Navbar = ({ userInfo, setInviteModalOn, setAddCampaignModal }: Props) => {
         <Link href="/">
           <div
             style={{ color: `${textColor}` }}
-            className="text-2xl font-bold sm:text-4xl"
+            className="text-2xl font-bold sm:pl-5 sm:text-4xl"
           >
             InJoy Labs Campaign
           </div>
