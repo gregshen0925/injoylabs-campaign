@@ -45,7 +45,7 @@ const CampainPage = () => {
       <Head>
         <title>{campaign?.title}</title>
         <meta name="description" content={`Title：${campaign?.title}`} />
-        <link rel="icon" href="/favicon.jpeg" />
+        <link rel="icon" href="/injoylabslogo.png" />
       </Head>
 
       {deleteCampaignModal ? (

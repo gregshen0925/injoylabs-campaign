@@ -10,7 +10,7 @@ type Props = {
 const Campaigns = ({ campaigns }: Props) => {
   const [parent] = useAutoAnimate();
   return (
-    <div className="custom-img2 z-[-2] flex min-h-screen items-center justify-center bg-cover bg-fixed bg-center">
+    <div className="custom-img7 z-[-2] flex min-h-screen items-center justify-center bg-cover bg-fixed bg-center">
       {/* <div className="flex min-h-screen flex-col items-center justify-center  bg-gradient-to-b from-[#7fadd9] to-[#0889f3] "> */}
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <div

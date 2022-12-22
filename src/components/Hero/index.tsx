@@ -32,7 +32,7 @@ const Hero = ({
 
   return (
     <div>
-      <div className="custom-img flex h-screen items-center justify-center bg-cover bg-fixed bg-center">
+      <div className="custom-img6 flex h-screen items-center justify-center bg-cover bg-fixed bg-center">
         <div className="absolute top-0 bottom-0 left-0 right-0 z-[2] h-screen bg-black/20" />
 
         <div className="z-[2] mt-[10rem] p-5 text-white sm:ml-[-10rem] sm:mt-[10rem] md:ml-[-20rem] lg:ml-[-30rem] xl:ml-[-40rem] 2xl:ml-[-50rem]">
@@ -68,7 +68,7 @@ const Hero = ({
           <div className="flex items-center space-x-3 py-5 text-xl">
             {userInfo ? (
               <Link href="#campaigns">
-                <button className="rounded-2xl bg-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/30">
+                <button className="h-[60px] rounded-2xl bg-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/30">
                   Campaigns
                 </button>
               </Link>

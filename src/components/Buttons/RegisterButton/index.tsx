@@ -9,12 +9,14 @@ const RegisterButton = ({ setRegisterModalOn }: Props) => {
     setRegisterModalOn(true);
   };
   return (
-    <div className="button-container-1">
-      <span className="mas">
+    <div className="">
+      {/* <span className="mas">
         <div className="animate-pulse">Register</div>
-      </span>
+      </span> */}
       <button onClick={handleOpenModal} type="button" name="Hover">
-        <div className="animate-pulse">Register</div>
+        <div className="hover:black animate-pulse rounded-2xl bg-black/30 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/20">
+          Register
+        </div>
       </button>
     </div>
   );

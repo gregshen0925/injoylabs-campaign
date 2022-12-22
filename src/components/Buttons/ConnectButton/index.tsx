@@ -17,24 +17,38 @@ const ConnectButton = ({ setConnectModalOn, setWalletInfoModalOn }: Props) => {
         borderRadius: "100%",
       }}
     >
-      <button
-        onClick={() =>
-          connected ? setWalletInfoModalOn(true) : setConnectModalOn(true)
-        }
-        type="button"
-        className="rounded-2xl bg-black/30 px-5 py-3 font-semibold text-white no-underline transition hover:bg-black/50"
-      >
-        <div className={`${connected ? null : "animate-pulse"}`}>
-          {`${
+      <div className="button-container-1">
+        <span className="mas">
+          <div
+            className={`animate-pulse ${connected ? null : "mt-[-13px]"}`}
+          >{`${
             connected
               ? network?.name?.toString().toLowerCase() == targetNetwork ||
                 "Aptos testnet"
                 ? "User Info"
                 : "Wrong Network"
               : "Connect Wallet"
-          }`}
-        </div>
-      </button>
+          }`}</div>
+        </span>
+        <button
+          onClick={() =>
+            connected ? setWalletInfoModalOn(true) : setConnectModalOn(true)
+          }
+          type="button"
+          // className="rounded-2xl bg-black/30 px-5 py-3 font-semibold text-white no-underline transition hover:bg-black/50"
+        >
+          <div className={`${connected ? null : "animate-pulse"}`}>
+            {`${
+              connected
+                ? network?.name?.toString().toLowerCase() == targetNetwork ||
+                  "Aptos testnet"
+                  ? "User Info"
+                  : "Wrong Network"
+                : "Connect Wallet"
+            }`}
+          </div>
+        </button>
+      </div>
       {/* </div> */}
     </motion.div>
   );
