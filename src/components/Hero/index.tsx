@@ -34,15 +34,13 @@ const Hero = ({
   return (
     <div>
       <div className="custom-img6 flex h-screen items-center justify-center bg-cover bg-fixed bg-center">
-        <div className="absolute top-0 bottom-0 left-0 right-0 z-[2] h-screen bg-black/20" />
-
-        <div className="z-[2] mt-[20rem] p-5 text-white sm:ml-[-10rem] sm:mt-[10rem] md:ml-[-20rem] lg:ml-[-30rem] xl:ml-[-40rem] 2xl:ml-[-50rem]">
+        <div className="mt-[20rem] ml-[-2rem] p-5 text-white sm:ml-[-10rem] sm:mt-[10rem] md:ml-[-15rem] lg:ml-[-25rem] xl:ml-[-35rem] 2xl:ml-[-45rem]">
           <motion.div
             initial={{ y: -250 }}
             animate={{ y: -10 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="text-4xl font-bold sm:text-5xl">
+            <div className="text-3xl font-bold sm:text-5xl">
               {account?.address ? (
                 haveToken ? (
                   userInfo ? (
@@ -73,7 +71,7 @@ const Hero = ({
             </div>
           </motion.div>
 
-          <div className="mt-[10rem] flex items-center space-x-3 py-5 text-xl sm:mt-0">
+          <div className="mt-[8rem] flex items-center space-x-3 py-5 text-xl sm:mt-0">
             {userInfo ? (
               <Link href="#campaigns">
                 <button className="h-[60px] rounded-2xl bg-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/30">
