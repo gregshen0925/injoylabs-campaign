@@ -19,15 +19,13 @@ const ConnectButton = ({ setConnectModalOn, setWalletInfoModalOn }: Props) => {
     >
       <div className="button-container-1">
         <span className="mas">
-          <div
-            className={`animate-pulse ${connected ? null : "mt-[-13px]"}`}
-          >{`${
+          <div className="animate-pulse">{`${
             connected
               ? network?.name?.toString().toLowerCase() == targetNetwork ||
                 "Aptos testnet"
                 ? "User Info"
                 : "Wrong Network"
-              : "Connect Wallet"
+              : "Login"
           }`}</div>
         </span>
         <button
@@ -44,7 +42,7 @@ const ConnectButton = ({ setConnectModalOn, setWalletInfoModalOn }: Props) => {
                   "Aptos testnet"
                   ? "User Info"
                   : "Wrong Network"
-                : "Connect Wallet"
+                : "Login"
             }`}
           </div>
         </button>

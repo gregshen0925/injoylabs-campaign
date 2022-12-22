@@ -33,7 +33,8 @@ const Home: NextPage = () => {
   );
 
   const { data: campaignObjects } = trpc.campaign.getAll.useQuery(undefined, {
-    enabled: userInfo?.approved !== false,
+    // enabled: userInfo?.approved !== false,
+    enabled: account?.address !== undefined,
   });
 
   useEffect(() => {
