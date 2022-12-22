@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -18,17 +18,17 @@ model Example {
 }
 
 model User {
-  id            String     @id @default(cuid())
-  address       String    @unique
-  name          String?
-  email         String?    @unique
-  image         String?
-  isAdmin       Boolean @default(false)
-  approved Boolean @default(true)
-  campaigns     Campaign[]
+  id          String     @id @default(cuid())
+  address     String     @unique
+  name        String?
+  email       String?    @unique
+  image       String?
+  isAdmin     Boolean    @default(false)
+  approved    Boolean    @default(true)
+  campaigns   Campaign[]
   description String?
+  assets      Int
 }
-
 
 model Campaign {
   id           String   @id @default(cuid())
