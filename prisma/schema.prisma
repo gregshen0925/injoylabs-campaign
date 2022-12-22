@@ -27,7 +27,6 @@ model User {
   approved    Boolean    @default(true)
   campaigns   Campaign[]
   description String?
-  assets      Int
 }
 
 model Campaign {
